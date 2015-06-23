@@ -252,6 +252,7 @@ def get_contents(meta_path):
 class MetaData(object):
 
     def __init__(self, path):
+	    path = os.path.abspath(path)
         assert isdir(path)
         self.path = path
         self.meta_path = join(path, 'meta.yaml')
