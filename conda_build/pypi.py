@@ -422,14 +422,14 @@ def version_compare(args, package, versions):
         # to a method in main() to take care of that.
         return
 
-    from os.path import abspath, isdir
+    from os.path import isdir
     from conda_build.metadata import MetaData
     from conda.resolve import normalized_version
     nv = normalized_version
 
     norm_versions = [nv(ver) for ver in versions]
 
-    recipe_dir = abspath(package.lower())
+    recipe_dir = package.lower()
     if not isdir(recipe_dir):
         sys.exit("Error: no such directory: %s" % recipe_dir)
     m = MetaData(recipe_dir)

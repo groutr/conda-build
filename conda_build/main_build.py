@@ -192,7 +192,7 @@ def execute(args, parser):
     import shutil
     import tarfile
     import tempfile
-    from os.path import abspath, isdir, isfile
+    from os.path import isdir, isfile
 
     from conda.lock import Locked
     import conda_build.build as build
@@ -262,7 +262,7 @@ def execute(args, parser):
                     print("Ignoring non-recipe: %s" % arg)
                     continue
             else:
-                recipe_dir = abspath(arg)
+                recipe_dir = arg
                 need_cleanup = False
 
             if not isdir(recipe_dir):
