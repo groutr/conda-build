@@ -329,7 +329,7 @@ def execute(args, parser):
             channel_urls=channel_urls,
             override_channels=args.override_channels)
 
-    config['MSVC'] = args.msvc if args.msvc else None
+    config.MSVC = args.msvc if args.msvc else None
 
     already_built = []
     to_build_recursive = []
