@@ -55,6 +55,10 @@ class RVersionsCompleter(Completer):
     def _get_items(self):
         return ['3.1.2', '3.1.3', '3.2.0', '3.2.1', '3.2.2']
 
+class MSVCVersionsCompleter(Completer):
+    def _get_items(self):
+        return ['all'] + ['9.0', '10.0', '14.0']
+
 def main():
     p = ArgumentParser(
         description="""
@@ -183,6 +187,15 @@ different sets of packages."""
         metavar="R_VER",
         choices=RVersionsCompleter(),
     )
+    p.add_argument(
+        '--msvc',
+        action="store",
+        help="""Set the MSVC compiler version used by conda build.
+        Value must be one of '9.0', '10.0', or '14.0'
+        This flag is ignored on non-windows platforms.""",
+        metavar="MSVC_VER",
+    )
+
     add_parser_channels(p)
     p.set_defaults(func=execute)
 
@@ -315,6 +328,8 @@ def execute(args, parser):
         index = build.get_build_index(clear_cache=True,
             channel_urls=channel_urls,
             override_channels=args.override_channels)
+
+    config['MSVC'] = args.msvc if args.msvc else None
 
     already_built = []
     to_build_recursive = []
