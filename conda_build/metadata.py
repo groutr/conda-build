@@ -63,6 +63,16 @@ def ns_cfg():
     for machine in cc.non_x86_linux_machines:
         d[machine] = bool(plat == 'linux-%s' % machine)
 
+    # Choose correct versions of msvc (only on win)
+    d['msvc9'] = d['msvc10'] = d['msvc14'] = False
+    if d['win']:
+        if d['py27'] or config.MSVC == '9.0':
+            d['msvc9'] = True
+        elif d['py34'] or config.MSVC == '10.0':
+            d['msvc10'] = True
+        elif d['py35'] or config.MSVC == '14.0':
+            d['msvc14'] = True
+
     d.update(os.environ)
     return d
 
