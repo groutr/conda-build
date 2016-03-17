@@ -89,3 +89,13 @@ class TestUtils(unittest.TestCase):
             ('x/x/x/x/libhdf5.so', '../../../../a/b/c/d'),
             ]:
             self.assertEqual(utils.relative(f, 'a/b/c/d'), r)
+
+def test_comma_join():
+    items = {('a',): 'a',
+             ('a', 'b'): 'a and b',
+             ('a', 'b', 'c'): 'a, b, and c',
+             ('',): ''}
+
+    for i, o in items.items():
+        assert utils.comma_join(i) == o
+
